@@ -7,8 +7,10 @@ const {
   toggleTaskStatusController,
 } = require("../controllers/task.controller");
 
-router.post("/", createTaskController);
-router.get("/", getTasksController);
-router.patch("/:id", toggleTaskStatusController);
+const { authMiddleware } = require("../middlewares/auth.middleware");
+
+router.post("/", authMiddleware, createTaskController);
+router.get("/", authMiddleware, getTasksController);
+router.patch("/:id", authMiddleware, toggleTaskStatusController);
 
 module.exports = router;

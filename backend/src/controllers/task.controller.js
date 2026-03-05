@@ -4,6 +4,7 @@ const taskModel = require("../models/task.model");
 const createTaskController = async (req, res) => {
   try {
     const { title, description, status, priority } = req.body;
+    const userId = req.userId;
 
     if (!title) {
       return res.status(400).json({
@@ -16,6 +17,7 @@ const createTaskController = async (req, res) => {
       description,
       status,
       priority,
+      userId,
     });
 
     if (!task) {
@@ -43,8 +45,9 @@ const createTaskController = async (req, res) => {
 const getTasksController = async (req, res) => {
   try {
     const { status } = req.query;
+    const userId = req.userId;
 
-    let filter = {};
+    let filter = { userId };
 
     if (status && status !== "All") {
       filter.status = status;
@@ -73,8 +76,9 @@ const getTasksController = async (req, res) => {
 const toggleTaskStatusController = async (req, res) => {
   try {
     const taskId = req.params.id;
+    const userId = req.userId;
 
-    const task = await taskModel.findById(taskId);
+    const task = await taskModel.findOne({ _id: taskId, userId });
 
     if (!task) {
       return res.status(404).json({
@@ -101,7 +105,7 @@ const toggleTaskStatusController = async (req, res) => {
       error: error,
     });
   }
-};
+};;
 
 
 
