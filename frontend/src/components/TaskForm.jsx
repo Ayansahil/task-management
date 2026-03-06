@@ -22,89 +22,88 @@ export default function TaskForm({ onTaskAdded }) {
     setStatus("Pending");
     setPriority("Medium");
 
-    onTaskAdded();
+    if (typeof onTaskAdded === "function") onTaskAdded();
   };
 
   return (
     <form
       onSubmit={submitHandler}
-      className="bg-white p-6 rounded-xl shadow-md mb-6"
+      className="relative bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-2xl shadow-2xl mb-6 border border-slate-700"
     >
-      <h2 className="text-xl font-semibold mb-4">
-        Add New Task
-      </h2>
+      {/* Header */}
+      <div className="mb-7">
+        <span className="text-xs font-bold tracking-widest text-indigo-400 uppercase">
+          New Task
+        </span>
+        <h2 className="text-2xl font-bold text-white mt-1">Add Task</h2>
+      </div>
 
       {/* Title */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">
-          Title *
+      <div className="mb-5">
+        <label className="block mb-1.5 text-xs font-semibold tracking-wider text-slate-400 uppercase">
+          Title <span className="text-indigo-400">*</span>
         </label>
         <input
           type="text"
           required
           value={title}
-          onChange={(e) =>
-            setTitle(e.target.value)
-          }
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none"
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="What needs to be done?"
+          className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
         />
       </div>
 
       {/* Description */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">
+      <div className="mb-5">
+        <label className="block mb-1.5 text-xs font-semibold tracking-wider text-slate-400 uppercase">
           Description
         </label>
         <textarea
           value={description}
-          onChange={(e) =>
-            setDescription(e.target.value)
-          }
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none"
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder="Add some details..."
+          rows={3}
+          className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition resize-none"
         />
       </div>
 
-      {/* Status */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">
-          Status
-        </label>
-        <select
-          value={status}
-          onChange={(e) =>
-            setStatus(e.target.value)
-          }
-          className="w-full p-3 border rounded-lg"
-        >
-          <option value="Pending">
-            Pending
-          </option>
-          <option value="Completed">
-            Completed
-          </option>
-        </select>
+      {/* Status + Priority side by side */}
+      <div className="grid grid-cols-2 gap-4 mb-7">
+        {/* Status */}
+        <div>
+          <label className="block mb-1.5 text-xs font-semibold tracking-wider text-slate-400 uppercase">
+            Status
+          </label>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+          >
+            <option value="Pending">⏳ Pending</option>
+            <option value="Completed">✅ Completed</option>
+          </select>
+        </div>
+
+        {/* Priority */}
+        <div>
+          <label className="block mb-1.5 text-xs font-semibold tracking-wider text-slate-400 uppercase">
+            Priority
+          </label>
+          <select
+            value={priority}
+            onChange={(e) => setPriority(e.target.value)}
+            className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-xl text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition"
+          >
+            <option value="Low">🟢 Low</option>
+            <option value="Medium">🟡 Medium</option>
+            <option value="High">🔴 High</option>
+          </select>
+        </div>
       </div>
 
-      {/* Priority (Extra Attribute) */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">
-          Priority
-        </label>
-        <select
-          value={priority}
-          onChange={(e) =>
-            setPriority(e.target.value)
-          }
-          className="w-full p-3 border rounded-lg"
-        >
-          <option>Low</option>
-          <option>Medium</option>
-          <option>High</option>
-        </select>
-      </div>
-
-      <button className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 transition">
-        Add Task
+      {/* Submit Button */}
+      <button className="w-full py-3 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-semibold rounded-xl tracking-wide transition-all duration-150 shadow-lg shadow-indigo-900">
+        + Add Task
       </button>
     </form>
   );

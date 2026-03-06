@@ -76,14 +76,14 @@ The project fulfills all mandatory assessment requirements.
 
 3. Create a `.env` file in backend root:
 
-   PORT=5000
+   PORT=3000
    MONGO_URI=mongodb://127.0.0.1:27017/taskportal
 
 4. Start backend:
    npm run dev
 
 Backend will run at:
-http://localhost:5000
+http://localhost:3000
 
 ---
 
@@ -140,7 +140,7 @@ Below are some raw prompts I used while building the project (written in natural
 # 📡 API Design (NON AI GENERATED)
 
 ## Base URL
-http://localhost:5000
+http://localhost:3000
 
 ## Endpoints
 
@@ -196,6 +196,7 @@ State handled using component-based architecture.
 backend/
  ├── config/
  ├── controllers/
+ ├── middlewares/
  ├── models/
  ├── routes/
  ├── .env
@@ -206,6 +207,7 @@ frontend/
  ├── src/
  │    ├── api/
  │    ├── components/
+ │    ├── context/
  │    ├── pages/
  │    ├── App.jsx
  │    └── main.jsx
